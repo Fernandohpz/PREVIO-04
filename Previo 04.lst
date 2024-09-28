@@ -1,0 +1,115 @@
+---------------------------------------------
+OSHONSOFT Z80 ASSEMBLER LISTING
+Line   Addr Opcode      Label   Instruction
+---------------------------------------------
+0001   0000             ;Programa 4 de Microprocesadores
+0002   0000             ;Programa para generar 3 patrones de bits
+0003   0000             
+0004   0000 3E 82       INICIO: LD A,82H        ;Configurar el PPI de salida
+0005   0002 D3 03       	OUT (03),A      ;PB de entrada y PC de salida modo 0
+0006   0004             
+0007   0004 DB 01       CHECAR: IN A, (01H)      ;Selecccionar el patron a exhibir
+0008   0006 E6 07       	AND 07H
+0009   0008 FE 04       	CP 04H
+0010   000A 28 17       	JR Z,ENCENDER
+0011   000C DB 01       	IN A,(01H)
+0012   000E E6 07       	AND 07H
+0013   0010 FE 02       	CP 02H
+0014   0012 28 16       	JR Z,BLINK
+0015   0014 DB 01       	IN A,(01H)
+0016   0016 E6 07       	AND 07H
+0017   0018 FE 01       	CP 01H
+0018   001A 28 3F       	JR Z,MOVER
+0019   001C 3E 00       	LD A,00H
+0020   001E D3 00       	OUT (00H), A
+0021   0020 C3 04 00    	JP CHECAR
+0022   0023             
+0023   0023             ENCENDER:
+0024   0023 3E FF               LD A,0FFH       ;Encender los leds permanentemente
+0025   0025 D3 00               OUT (00H),  A
+0026   0027 C3 04 00            JP CHECAR
+0027   002A             
+0028   002A             BLINK:
+0029   002A 3E FF               LD A,0FFH       ;Parpadeo de leds
+0030   002C D3 00               OUT (00H), A
+0031   002E             
+0032   002E 11 02 00            LD DE,0002H     ;Consumo de tiempo
+0033   0031 01 02 00            LD BC,0002H
+0034   0034 21 FF FF    CICLO1: LD HL,0FFFFH
+0035   0037 09          CICLO2: ADD HL,BC
+0036   0038 DA 37 00            JP C,CICLO2
+0037   003B EB                  EX DE,HL
+0038   003C 09                  ADD HL,BC
+0039   003D EB                  EX DE,HL
+0040   003E DA 34 00            JP C,CICLO1
+0041   0041             
+0042   0041 3E 00               LD A,00H
+0043   0043 D3 00               OUT (00H),A
+0044   0045             
+0045   0045 11 02 00            LD DE,0002H
+0046   0048 01 02 00            LD BC,0002H
+0047   004B 21 FF FF    CICLO3: LD HL,0FFFFH
+0048   004E 09          CICLO4: ADD HL,BC
+0049   004F DA 4E 00            JP C,CICLO4
+0050   0052 EB                  EX DE,HL
+0051   0053 09                  ADD HL,BC
+0052   0054 EB                  EX DE,HL
+0053   0055 DA 4B 00            JP C,CICLO3
+0054   0058             
+0055   0058 C3 04 00            JP CHECAR
+0056   005B 3E C0       MOVER:  LD A,0C0H         ;Corrimiento de leds
+0057   005D D3 00       	OUT (00H), A
+0058   005F             
+0059   005F 11 02 00    	LD DE,0002H
+0060   0062 01 02 00    	LD BC,0002H
+0061   0065 21 FF FF    CICLO5: LD HL,0FFFFH
+0062   0068 09          CICLO6: ADD HL,BC
+0063   0069 DA 68 00            JP C,CICLO6
+0064   006C EB                  EX DE,HL
+0065   006D 09                  ADD HL,BC
+0066   006E EB                  EX DE,HL
+0067   006F DA 65 00            JP C,CICLO5
+0068   0072             
+0069   0072 3E 30               LD A,30H
+0070   0074 D3 00               OUT (00H),A
+0071   0076             
+0072   0076 11 02 00            LD DE,0002H
+0073   0079 01 02 00            LD BC,0002H
+0074   007C 21 FF FF    CICLO7: LD HL,0FFFFH
+0075   007F 09          CICLO8: ADD HL,BC
+0076   0080 DA 7F 00            JP C,CICLO8
+0077   0083 EB                  EX DE,HL
+0078   0084 09                  ADD HL,BC
+0079   0085 EB                  EX DE,HL
+0080   0086 DA 7C 00            JP C,CICLO7
+0081   0089             
+0082   0089 3E 0C               LD A,0CH
+0083   008B D3 00               OUT (00H),A
+0084   008D             
+0085   008D 11 02 00            LD DE,0002H
+0086   0090 01 02 00            LD BC,0002H
+0087   0093 21 FF FF    CICLO9: LD HL,0FFFFH
+0088   0096 09          CICLO10: ADD HL,BC
+0089   0097 DA 96 00            JP C,CICLO10
+0090   009A EB                  EX DE,HL
+0091   009B 09                  ADD HL,BC
+0092   009C EB                  EX DE,HL
+0093   009D DA 93 00            JP C,CICLO9
+0094   00A0             
+0095   00A0 3E 03               LD A,03H
+0096   00A2 D3 00               OUT (00H),A
+0097   00A4             
+0098   00A4 11 02 00            LD DE,0002H
+0099   00A7 01 02 00            LD BC,0002H
+0100   00AA 21 FF FF    CICLO11: LD HL,0FFFFH
+0101   00AD 09          CICLO12: ADD HL,BC
+0102   00AE DA AD 00            JP C,CICLO12
+0103   00B1 EB                  EX DE,HL
+0104   00B2 09                  ADD HL,BC
+0105   00B3 EB                  EX DE,HL
+0106   00B4 DA AA 00            JP C,CICLO11
+0107   00B7             
+0108   00B7 C3 04 00            JP CHECAR
+0109   00BA             
+0110   00BA                     END
+Number of errors = 0
